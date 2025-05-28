@@ -12,12 +12,12 @@ $confirmationurl 	= $ipay->confirmationurl;
 $signature 			= hash('sha256', $apikey.'~'.$merchantid.'~'.$referencecode.'~'.$amount.'~'.$currency);
 
 ?>
-<div class="modal fade modal-ipay" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<div id="modalformIpay" class="modal fade modal-ipay" tabindex="-1" role="dialog" aria-labelledby="modalformIpay">
 	<div class="modal-dialog modal-md" role="document">
 		<div class="modal-content">
 			<form method="post" action="{{ ($ipay->mode == 1) ? 'https://sandbox.gateway.payulatam.com/ppp-web-gateway/' : 'https://gateway.payulatam.com/ppp-web-gateway/' }}">
 				<div class="modal-header">
-					<h4 class="modal-title" id="gridSystemModalLabel">Pagar</h4>
+					<h4 class="modal-title" id="gridSystemModalLabel">{{trans('ipay::common.form.title')}}</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				</div>
 				@if($ipay->status == 1)
@@ -34,38 +34,38 @@ $signature 			= hash('sha256', $apikey.'~'.$merchantid.'~'.$referencecode.'~'.$a
 						<input name="confirmationUrl"    type="hidden"  value="{{ $confirmationurl }}">
 						<input type="hidden" name="shippingCountry" value="CO">
 
-						<label for="">Número de Factura</label>
-						<input type="text" name="referenceCode" id="referencecode" class="form-control" maxlength="255"  onkeyup="reorder()" required="">
+						<label for="">{{trans('ipay::common.form.inputs.invoiceNumber')}}</label>
+						<input type="text" name="referenceCode" id="referencecode" class="form-control" maxlength="255"  onkeyup="reorder()" :required="true">
 						
-						<label for="">Nombre Completo</label>
-						<input type="text" name="buyerFullName" class="form-control" maxlength="150">
+						<label for="">{{trans('ipay::common.form.inputs.fullName')}}</label>
+						<input type="text" name="buyerFullName" class="form-control" maxlength="150" :required="true">
 
-						<label for="">Monto</label>
-						<input type="number" name="amount" id="amount" type="hidden" class="form-control" onkeyup="reorder()" required="">
+						<label for="">{{trans('ipay::common.form.inputs.amount')}}</label>
+						<input type="number" name="amount" id="amount" type="hidden" class="form-control" onkeyup="reorder()" :required="true">
 
-						<label for="">Descripición</label>
+						<label for="">{{trans('ipay::common.form.inputs.description')}}</label>
 						<input name="description" type="text" class="form-control" maxlength="255" value="" required="">
 
-						<label for="">Email de Comprador</label>
-						<input type="email" name="buyerEmail"  class="form-control" maxlength="255" value="" required="">
+						<label for="">{{trans('ipay::common.form.inputs.email')}}</label>
+						<input type="email" name="buyerEmail"  class="form-control" maxlength="255" value="" :required="true">
 
-						<label for="">Ciudad de envio</label>
+						<label for="">{{trans('ipay::common.form.inputs.city')}}</label>
 						<input type="text" name="shippingCity" class="form-control" maxlength="50" required="">
 
-						<label for="">Dirección de envio</label>
+						<label for="">{{trans('ipay::common.form.inputs.address')}}</label>
 						<input type="text" name="shippingAddress" class="form-control" maxlength="255" required="">
 
-						<label for="">Teléfono o Celular</label>
+					   <label for="">{{trans('ipay::common.form.inputs.phone')}}</label>
 						<input type="text" name="telephone" class="form-control" maxlength="50" required="">
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-						<button type="submit" class="btn btn-primary">Pagar</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">{{trans('ipay::common.form.btns.cancel')}}</button>
+						<button type="submit" class="btn btn-primary">{{trans('ipay::common.form.btns.pay')}}</button>
 					</div>
 				@else
 					<div class="row">
 						<div class="col-md-12">
-							<div class="alert alert-warning text-center">Servicio no disponible.</div>
+							<div class="alert alert-warning text-center">{{trans('ipay::common.form.alert')}}</div>
 						</div>
 					</div>
 				@endif
