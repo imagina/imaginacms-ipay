@@ -35,6 +35,10 @@ To trigger the modal form, you need a clickable component (like a button) with t
 ###  Example
 
 ```blade
+{/* Call template */}
+{!! ipay_config($template) !!} 
+
+{/* Component to open Modal -  Example */}
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalformIpay">
   {{ trans('ipay::common.form.btns.openForm') }}
 </button>
