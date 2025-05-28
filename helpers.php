@@ -2,9 +2,11 @@
 
 use Modules\Ipay\Entities\Config;
 
-if (! function_exists('ipay_config')) {
-    function ipay_config($templates)
+if (!function_exists('ipay_config')) {
+
+    function ipay_config($templates = 'ipay::frontend.form.modal')
     {
+
         $ipay = Config::query()->first();
 
         if ($ipay) {
@@ -12,7 +14,7 @@ if (! function_exists('ipay_config')) {
                 ->with([
                     'ipay' => $ipay,
                 ]);
-
+            
             return $view->render();
         }
     }
